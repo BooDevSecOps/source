@@ -1,8 +1,7 @@
-FROM aapanel/aapanel:lib
+FROM boohere/aapanel_img:latest
 
-USER root
+RUN apt-get update -y
 
 # Update AAPanel
 RUN bt 16
 
-WORKDIR /www/
