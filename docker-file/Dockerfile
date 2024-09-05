@@ -1,16 +1,16 @@
-FROM boohere/aapanel_img:lib2
+FROM boohere/aapanel_img:lib3
 
-RUN apt-get update -y
+#RUN apt-get update -y
 
-COPY entrypoint.sh /entrypoint.sh
-RUN ["chmod", "+x", "/entrypoint.sh"]
-COPY restart.sh /restart.sh
-RUN ["chmod", "+x", "/restart.sh"]
-COPY tail.sh /tail.sh
-RUN ["chmod", "+x", "/tail.sh"]
+#COPY entrypoint.sh /entrypoint.sh
+#RUN ["chmod", "+x", "/entrypoint.sh"]
+#COPY restart.sh /restart.sh
+#RUN ["chmod", "+x", "/restart.sh"]
+#COPY tail.sh /tail.sh
+#RUN ["chmod", "+x", "/tail.sh"]
 
-ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+#ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
 # Update AAPanel
-RUN bt 16
+#RUN bt 16
 
