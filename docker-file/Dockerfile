@@ -1,4 +1,4 @@
-FROM boohere/aapanel_img:lib
+FROM boohere/aapanel_img:lib2
 
 RUN apt-get update -y
 
