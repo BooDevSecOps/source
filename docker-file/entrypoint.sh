@@ -26,35 +26,15 @@ fi
 [[ ! -z "$PANEL_PATH" ]] && echo "/$PANEL_PATH" > /www/server/panel/data/admin_path.pl
 [[ ! -z "$REDIS_PASS" ]] && sudo sed -z -i "s/# requirepass foobared/requirepass $REDIS_PASS\n/g" /www/server/redis/redis.conf
 
-
-# Copy the file to the mounted volume and extract it
-cp /www/server.tar.gz /root/vol/
-tar -xzf /root/vol/server.tar.gz -C /root/vol/
-
-# Keep the container running or exit
-tail -f /dev/null
+# Check if the /www/server/data directory is empty
+tar xzpvf /tmp/data.tar.gz -C /
+# Start the necessary services or default command
+exec "$@"
 
 #ini restart aapanel
 sh /restart.sh
 #end restart aapanel
-# ini nginx check and start if not running
-nginx_check() {
-    if ! pgrep -x "nginx" > /dev/null
-    then
-        echo "Nginx is not running, starting Nginx..."
-        /etc/init.d/nginx start
-    else
-        echo "Nginx is running."
-    fi
-}
 
-# Run the Nginx check
-nginx_check
-# end nginx check and start if not running
-# ini it's a healthcheck, not the best approach but it's better then original approach with tail
-sleep 10;
-while [ true ]
-do
-    curl -m 60 --retry 8 --retry-max-time 480 -skI -XGET http://127.0.0.1:7800 | awk NR==1 | grep -q 404; if [ $? -gt 0 ]; then exit 1; else sleep 60; fi
-done
-# end it's a healthcheck, not the best approach but it's better then original approach with tail
+# Keep the container running or exit
+tail -f /dev/null
+
