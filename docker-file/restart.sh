@@ -1,10 +1,9 @@
 #!/bin/sh
 
 #ini restart aapanel
-/www/server/mysql/scripts/mysql_install_db --user=mysql
 /etc/init.d/nginx start
-/etc/init.d/mysqld start
+/etc/init.d/mysqld restart
 /etc/init.d/php-fpm-74 start
 /etc/init.d/redis start
-bt 1
+bt 10
 #end restart aapanel
